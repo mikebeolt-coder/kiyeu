@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp mời Kỉ Yếu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --frieren-blue: #a2d2ff;
+            --frieren-white: #ffffff;
+            --frieren-accent: #ffafcc;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eaf4ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        #container {
+            text-align: center;
+            background: var(--frieren-white);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 550px;
+            width: 90%;
+            position: relative;
+            border: 4px solid var(--frieren-blue);
+        }
+        h1 { color: #5a80a5; margin-bottom: 5px; }
+        h2 { color: #ff8fab; font-size: 1.5rem; margin-top: 0; }
+        
+        .sticker-container {
+            height: 180px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sticker { width: 180px; display: none; border-radius: 15px; }
+        .sticker.active { display: block; }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            min-height: 200px;
+        }
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        #yesBtn { background-color: #ff8fab; color: white; z-index: 10; }
+        #noBtn { background-color: #bde0fe; color: #5a80a5; position: relative; }
+
+        /* Màn hình thành công */
+        #success-content { display: none; }
+        .video-container { margin: 20px 0; border-radius: 15px; overflow: hidden; border: 3px solid #ffafcc; }
+        .timeline-card { 
+            text-align: left; 
+            background: #f9f9f9; 
+            padding: 20px; 
+            border-radius: 15px; 
+            border: 2px dashed #a2d2ff;
+            margin-bottom: 20px;
+        }
+        .timeline-item { margin: 10px 0; font-size: 15px; color: #444; }
+        select { 
+            padding: 12px; 
+            border-radius: 10px; 
+            border: 2px solid #a2d2ff; 
+            width: 100%; 
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        #downloadBtn { background-color: #5a80a5; color: white; margin-top: 15px; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="invite-content">
+            <h1>🌸 Thiệp mời Kỉ Yếu 🌸</h1>
+            <h2>Kính mời Dum cutiiii</h2>
+            
+            <div class="sticker-container">
+                <img src="https://giffiles.alphacoders.com/221/221799.gif" class="sticker active" id="frieren-normal" width="200px">
+                <img src="https://media.tenor.com/AsTrA5cKBZMAAAAM/frieren-crying.gif" class="sticker" id="frieren-pout" width="30%">
+                <img src="https://media.tenor.com/AsTrA5cKBZMAAAAM/frieren-crying.gif" class="sticker" id="frieren-mimic" width="30%">
+            </div>
+
+            <p style="color: #666;">Cậu sẽ đi chụp kỉ yếu với tớ chứ? ✨</p>
+
+            <div class="btn-group">
+                <button id="yesBtn">Chắc chắn điiii</button>
+                <button id="noBtn">Không điiii</button>
+            </div>
+        </div>
+
+        <div id="success-content">
+            <h1>HẾT SẨY CON BÀ BẨY! 🎉</h1>
+            <p>Hẹn gặp Dum cutiiii ở buổi chụp với pm nheee</p>
+            
+            <div class="video-container">
+                <img src="https://64.media.tumblr.com/d776c40a659d2b6f2fdc990b03e484a1/1520807ffb5176b9-6f/s500x750/f93fd49e55a9488a0c44803123d7a4c9061e6f56.gif" alt="gif">
+            </div>
+            
+            <div id="capture-zone" class="timeline-card">
+                <h3 style="margin-top:0; color: #5a80a5;">📅 Timeline Kỉ Yếu</h3>
+                <div class="timeline-item">📍 07:00 - Có mặt tại trường, chụp tự do</div>
+                <div class="timeline-item">📸 08:00 - Chụp tại sân trường với lớp</div>
+                <div class="timeline-item">🍽️ 12:00 - nghỉ trưaaaaa</div>
+                <div class="timeline-item">🌅 14:00 - Chụp ảnh concept tự chọn</div>
+                
+                <p style="font-weight: bold; margin-bottom: 5px;">Chọn khung giờ của Dum:</p>
+                <select id="timeOption">
+                    <option value="Buổi Sáng (Hào hứng)">Buổi Sáng</option>
+                    <option value="Buổi Chiều (Chill chill)">Buổi Chiều</option>
+                    <option value="Cả ngày (Quẩy hết mình)">Cả ngày</option>
+                </select>
+                <div id="selected-display" style="display:none; color: #ff8fab; font-weight: bold; margin-top: 10px;"></div>
+            </div>
+            
+            <button id="downloadBtn">Tải ảnh xác nhận & Gửi tớ!</button>
+        </div>
+    </div>
+
+    <script>
+        let yesScale = 1;
+        const maxScale = 5; 
+        let noClickCount = 0;
+
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const inviteContent = document.getElementById('invite-content');
+        const successContent = document.getElementById('success-content');
+        
+        const stickers = [
+            document.getElementById('frieren-normal'),
+            document.getElementById('frieren-pout'),
+            document.getElementById('frieren-mimic')
+        ];
+
+        function changeSticker(index) {
+            stickers.forEach(s => s.classList.remove('active'));
+            stickers[index].classList.add('active');
+        }
+
+        // Xử lý nút KHÔNG
+        noBtn.addEventListener('click', () => {
+            noClickCount++;
+            
+            // Thay đổi sticker theo số lần từ chối
+            if(noClickCount % 2 === 1) changeSticker(1); // Phụng phịu
+            else changeSticker(2); // Bị Mimic cắn
+
+            // Phóng to nút YES
+            if (yesScale < maxScale) {
+                yesScale += 0.5;
+                yesBtn.style.transform = `scale(${yesScale})`;
+            }
+
+            // Nút NO bắt đầu chạy trốn khi nút YES đã đủ lớn
+            if (yesScale >= 2) {
+                const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+                const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = x + 'px';
+                noBtn.style.top = y + 'px';
+            }
+        });
+
+        // Xử lý nút CÓ
+        yesBtn.addEventListener('click', () => {
+            inviteContent.style.display = 'none';
+            successContent.style.display = 'block';
+        });
+
+        // Xử lý chụp ảnh màn hình
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const captureZone = document.getElementById('capture-zone');
+            const selectedTime = document.getElementById('timeOption').value;
+            const display = document.getElementById('selected-display');
+            
+            // Hiển thị lựa chọn lên ảnh trước khi chụp
+            display.innerText = "Xác nhận tham gia: " + selectedTime;
+            display.style.display = "block";
+            document.getElementById('timeOption').style.display = "none";
+
+            html2canvas(captureZone).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'xac-nhan-ky-yeu-dum.png';
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+                
+                // Trả lại trạng thái cũ
+                display.style.display = "none";
+                document.getElementById('timeOption').style.display = "block";
+            });
+        });
+    </script>
+</body>
+</html>
